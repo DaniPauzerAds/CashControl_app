@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
+            android:background="#8E0235"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CashControl"
+                android:textColor="#FFFFFF"
+                android:textSize="38sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Seus gastos sob controle"
+                android:textColor="#99FFFFFF"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="70dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bem-vindo!"
+                android:textColor="#0A1628"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-MAIL"
+                android:textColor="#7A8FA8"
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#F7F9FC"
+                android:hint=""
+                android:hintTextColor="#C2CEDF"
+                android:textColor="#3D4F63"
+                android:textSize="14sp"
+                android:padding="14dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SENHA"
+                android:textColor="#7A8FA8"
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/etSenha"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#F7F9FC"
+                android:hintTextColor="#C2CEDF"
+                android:textColor="#3D4F63"
+                android:textSize="14sp"
+                android:padding="14dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:id="@+id/tvEsqueceu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Esqueci minha senha"
+                android:textColor="#8E0235"
+                android:textSize="10dp"
+                android:paddingBottom="20dp"/>
+
+
+            <Button
+                android:id="@+id/btnEntrar"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Entrar"
+                android:backgroundTint="#8E0235"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tvCadastro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Ainda não tem conta? Cadastre-se"
+                android:textColor="#8E0235"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
