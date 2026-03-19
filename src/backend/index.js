@@ -6,12 +6,13 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+
 const db = mysql.createPool({
-  host: 'centerbeam.proxy.rlwy.net',
-  port: 31645,
-  user: 'root',
-  password: 'mJIxZGmBtoPpEXErdjUFRArEArErwGOl',
-  database: 'railway',
+  host: process.env.MYSQLHOST,
+  port: process.env.MYSQLPORT,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
   ssl: {
     rejectUnauthorized: false
   }
@@ -51,6 +52,7 @@ app.post('/login', async (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log('Servidor rodando na porta ' + PORT);
 });
