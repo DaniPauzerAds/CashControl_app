@@ -27,6 +27,10 @@ db.getConnection((err, connection) => {
   connection.release();
 });
 
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 app.post('/cadastro', async (req, res) => {
   const { nome, email, senha } = req.body;
   const senhaCriptografada = await bcrypt.hash(senha, 10);
