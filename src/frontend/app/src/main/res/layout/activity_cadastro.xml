@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="235dp"
+            android:layout_height="150dp"
             android:background="#8E0235"
             android:orientation="vertical"
             android:gravity="center"
@@ -20,16 +20,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CashControl"
+                android:layout_marginRight="55dp"
+                android:text="Criar Conta "
                 android:textColor="#FFFFFF"
                 android:textSize="38sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Seus gastos sob controle"
+                android:layout_marginRight="66dp"
+                android:text="Preencha com seus dados"
                 android:textColor="#99FFFFFF"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -43,18 +45,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bem-vindo!"
-                android:textColor="#0A1628"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                android:text="NOME COMPLETO"
+                android:textColor="#7A8FA8"
+                android:textSize="15sp"
+                android:layout_marginBottom="6dp"/>
 
+            <EditText
+                android:id="@+id/etNome"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#F7F9FC"
+                android:hint=""
+                android:textSize="14sp"
+                android:padding="14dp"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="14dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="E-MAIL"
                 android:textColor="#7A8FA8"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_marginBottom="6dp"/>
 
             <EditText
@@ -62,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
-                android:textColor="#3D4F63"
+                android:hint=""
                 android:textSize="14sp"
                 android:padding="14dp"
                 android:inputType="textEmailAddress"
@@ -73,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="SENHA"
                 android:textColor="#7A8FA8"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_marginBottom="6dp"/>
 
             <EditText
@@ -81,40 +92,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
-                android:textColor="#3D4F63"
                 android:textSize="14sp"
                 android:padding="14dp"
                 android:inputType="textPassword"
                 android:layout_marginBottom="24dp"/>
 
-            <TextView
-                android:id="@+id/tvEsqueceu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Esqueci minha senha"
-                android:textColor="#8E0235"
-                android:textSize="10dp"
-                android:paddingBottom="20dp"/>
-
 
             <Button
-                android:id="@+id/btnEntrar"
+                android:id="@+id/btnCriarConta"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:text="Entrar"
+                android:text="Criar Conta"
                 android:backgroundTint="#8E0235"
-                android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="26dp"
+                android:layout_marginBottom="26dp"/>
 
             <TextView
-                android:id="@+id/tvCadastro"
+                android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Ainda não tem conta? Cadastre-se"
+                android:text="Já tem conta? Fazer Login"
                 android:textColor="#8E0235"
                 android:textSize="13sp" />
 
