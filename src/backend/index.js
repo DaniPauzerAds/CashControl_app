@@ -52,7 +52,7 @@ app.post('/login', async (req, res) => {
     if (results.length === 0) return res.status(401).json({ erro: 'Email ou senha inválidos' });
     const senhaCorreta = await bcrypt.compare(senha, results[0].senha);
     if (!senhaCorreta) return res.status(401).json({ erro: 'Email ou senha inválidos' });
-    res.status(200).json({ mensagem: 'Login realizado com sucesso!', usuario: results[0].nome });
+    res.status(200).json({ mensagem: 'Login realizado com sucesso!', usuario: results[0].nome, id: results[0].id });
   });
 });
 
