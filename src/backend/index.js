@@ -56,7 +56,39 @@ app.post('/login', async (req, res) => {
   });
 });
 
+app.post('/gastos', async (req, res) => {
+  const { descricao, valor, categoria, data, id_usuario } = req.body;
+  const sql = 'INSERT INTO gastos (descricao, valor, categoria, data, id_usuario) VALUES (?, ?, ?, ?, ?)';
+  db.query(sql, [descricao, valor, categoria, data, id_usuario], (err, result) => {
+    if (err) {
+      console.log('Erro detalhado:', err);
+      return res.status(500).json({ erro: 'Erro ao adicionar gasto' });
+    }
+    res.status(201).json({ mensagem: 'Gasto adicionado com sucesso!' });
+  });
+});
+
+
+app.get('/gastos/:id_usuario', (req, res) => {
+  const { id_usuario } = req.params;
+  const sql = 'SELECT * FROM gastos WHERE id_usuario = ? ORDER BY data DESC';
+  db.query(sql, [id_usuario], (err, results) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao buscar gastos' });
+    res.status(200).json(results);
+  });
+});
+
+app.get('/gastos/resumo/:id_usuario', (req, res) => {
+  const { id_usuario } = req.params;
+  const sql = 'SELECT categoria, SUM(valor) as total FROM gastos WHERE id_usuario = ? AND MONTH(data) = MONTH(CURDATE()) GROUP BY categoria';
+  db.query(sql, [id_usuario], (err, results) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao buscar resumo' });
+    res.status(200).json(results);
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('Servidor rodando na porta ' + PORT);
 });
+
