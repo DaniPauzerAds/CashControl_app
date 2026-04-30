@@ -1,6 +1,7 @@
 package com.example.cashcontrol;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences prefs = getSharedPreferences("cashcontrol", MODE_PRIVATE);
+        int idSalvo = prefs.getInt("id_usuario", 0);
+        String nomeSalvo = prefs.getString("nome", null);
+
+        if (idSalvo != 0 && nomeSalvo != null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.putExtra("id_usuario", idSalvo);
+            intent.putExtra("nome", nomeSalvo);
+            startActivity(intent);
+            finish();
+            return;
+        }
         etEmail = findViewById(R.id.etEmail);
         etSenha = findViewById(R.id.etSenha);
         btnLogin = findViewById(R.id.btnEntrar);
@@ -69,9 +82,15 @@ public class MainActivity extends AppCompatActivity {
                 response -> {
                     try {
                         String nome = response.getString("usuario");
-                        Toast.makeText(this, "Bem-vinda, " + nome + "!", Toast.LENGTH_SHORT).show();
+                        int id = response.getInt("id");
+                        SharedPreferences prefs = getSharedPreferences("cashcontrol", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("id_usuario", id);
+                        editor.putString("nome", nome);
+                        editor.apply();
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         intent.putExtra("nome", nome);
+                        intent.putExtra("id_usuario", id);
                         startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();

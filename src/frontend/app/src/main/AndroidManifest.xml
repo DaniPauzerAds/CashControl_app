@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".CadastroActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".AdicionarGastoActivity"></activity>
+        <activity android:name=".GraficoActivity"></activity>
 
     </application>
 
