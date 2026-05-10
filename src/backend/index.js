@@ -87,6 +87,25 @@ app.get('/gastos/resumo/:id_usuario', (req, res) => {
   });
 });
 
+app.delete('/gastos/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM gastos WHERE id = ?';
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao deletar gasto' });
+    res.status(200).json({ mensagem: 'Gasto deletado com sucesso!' });
+  });
+});
+
+app.put('/gastos/:id', (req, res) => {
+  const { id } = req.params;
+  const { descricao, valor, categoria, data } = req.body;
+  const sql = 'UPDATE gastos SET descricao = ?, valor = ?, categoria = ?, data = ? WHERE id = ?';
+  db.query(sql, [descricao, valor, categoria, data, id], (err, result) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao editar gasto' });
+    res.status(200).json({ mensagem: 'Gasto editado com sucesso!' });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('Servidor rodando na porta ' + PORT);

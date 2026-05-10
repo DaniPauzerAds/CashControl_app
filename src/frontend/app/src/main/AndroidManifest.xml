@@ -24,6 +24,8 @@
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".AdicionarGastoActivity"></activity>
         <activity android:name=".GraficoActivity"></activity>
+        <activity android:name=".PerfilActivity"></activity>
+
 
     </application>
 
