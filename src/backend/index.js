@@ -80,7 +80,7 @@ app.get('/gastos/:id_usuario', (req, res) => {
 
 app.get('/gastos/resumo/:id_usuario', (req, res) => {
   const { id_usuario } = req.params;
-  const sql = 'SELECT categoria, SUM(valor) as total FROM gastos WHERE id_usuario = ? AND MONTH(data) = MONTH(CURDATE()) GROUP BY categoria';
+  const sql = 'SELECT categoria, SUM(valor) as total FROM gastos WHERE id_usuario = ? AND data >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) GROUP BY categoria';
   db.query(sql, [id_usuario], (err, results) => {
     if (err) return res.status(500).json({ erro: 'Erro ao buscar resumo' });
     res.status(200).json(results);

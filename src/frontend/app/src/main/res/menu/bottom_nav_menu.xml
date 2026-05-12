@@ -16,5 +16,8 @@
         android:id="@+id/nav_perfil"
         android:icon="@drawable/perfil_png"
         android:title="Perfil"/>
+    <item
+        android:id="@+id/nav_adicionar"
+        android:title="Adicionar"/>
 
 </menu>

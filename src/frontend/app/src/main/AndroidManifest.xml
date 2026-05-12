@@ -25,6 +25,7 @@
         <activity android:name=".AdicionarGastoActivity"></activity>
         <activity android:name=".GraficoActivity"></activity>
         <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".ListaGastosActivity"></activity>
 
 
     </application>

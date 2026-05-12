@@ -55,6 +55,11 @@ public class HomeActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 return true;
+            } else if (id == R.id.nav_adicionar) {
+                Intent intent = new Intent(HomeActivity.this, ListaGastosActivity.class);
+                intent.putExtra("id_usuario", idUsuario);
+                startActivity(intent);
+                return true;
             } else if (id == R.id.nav_grafico) {
                 Intent intent = new Intent(HomeActivity.this, GraficoActivity.class);
                 intent.putExtra("id_usuario", idUsuario);
@@ -106,7 +111,6 @@ public class HomeActivity extends AppCompatActivity {
                             categorias
                     );
 
-                    lvCategorias.setAdapter(adapter);
                     lvCategorias.setAdapter(adapter);
                 },
                 error -> {
