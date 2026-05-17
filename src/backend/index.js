@@ -13,16 +13,11 @@ const db = mysql.createPool({
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: { rejectUnauthorized: false }
 });
 
 db.getConnection((err, connection) => {
-  if (err) {
-    console.log('Erro ao conectar no banco:', err);
-    return;
-  }
+  if (err) { console.log('Erro ao conectar no banco:', err); return; }
   console.log('Conectado ao banco de dados!');
   connection.release();
 });
@@ -36,10 +31,7 @@ app.post('/cadastro', async (req, res) => {
   const senhaCriptografada = await bcrypt.hash(senha, 10);
   const sql = 'INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)';
   db.query(sql, [nome, email, senhaCriptografada], (err, result) => {
-    if (err) {
-      console.log('Erro detalhado:', err);
-      return res.status(500).json({ erro: 'Erro ao cadastrar usuário' });
-    }
+    if (err) { console.log('Erro detalhado:', err); return res.status(500).json({ erro: 'Erro ao cadastrar usuário' }); }
     res.status(201).json({ mensagem: 'Usuário cadastrado com sucesso!' });
   });
 });
@@ -57,32 +49,38 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/gastos', async (req, res) => {
-  const { descricao, valor, categoria, data, id_usuario } = req.body;
-  const sql = 'INSERT INTO gastos (descricao, valor, categoria, data, id_usuario) VALUES (?, ?, ?, ?, ?)';
-  db.query(sql, [descricao, valor, categoria, data, id_usuario], (err, result) => {
-    if (err) {
-      console.log('Erro detalhado:', err);
-      return res.status(500).json({ erro: 'Erro ao adicionar gasto' });
-    }
+  const { descricao, valor, categoria, data, id_usuario, tipo } = req.body;
+  const sql = 'INSERT INTO gastos (descricao, valor, categoria, data, id_usuario, tipo) VALUES (?, ?, ?, ?, ?, ?)';
+  db.query(sql, [descricao, valor, categoria, data, id_usuario, tipo || 'gasto'], (err, result) => {
+    if (err) { console.log('Erro detalhado:', err); return res.status(500).json({ erro: 'Erro ao adicionar gasto' }); }
     res.status(201).json({ mensagem: 'Gasto adicionado com sucesso!' });
   });
 });
 
+app.get('/gastos/resumo/:id_usuario', (req, res) => {
+  const { id_usuario } = req.params;
+  const sql = `
+    SELECT 
+      categoria, 
+      SUM(CASE WHEN tipo = 'gasto' THEN valor ELSE 0 END) as total_gastos,
+      SUM(CASE WHEN tipo = 'ganho' THEN valor ELSE 0 END) as total_ganhos,
+      tipo
+    FROM gastos 
+    WHERE id_usuario = ? 
+    AND data >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) 
+    GROUP BY categoria, tipo
+  `;
+  db.query(sql, [id_usuario], (err, results) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao buscar resumo' });
+    res.status(200).json(results);
+  });
+});
 
 app.get('/gastos/:id_usuario', (req, res) => {
   const { id_usuario } = req.params;
   const sql = 'SELECT * FROM gastos WHERE id_usuario = ? ORDER BY data DESC';
   db.query(sql, [id_usuario], (err, results) => {
     if (err) return res.status(500).json({ erro: 'Erro ao buscar gastos' });
-    res.status(200).json(results);
-  });
-});
-
-app.get('/gastos/resumo/:id_usuario', (req, res) => {
-  const { id_usuario } = req.params;
-  const sql = 'SELECT categoria, SUM(valor) as total FROM gastos WHERE id_usuario = ? AND data >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) GROUP BY categoria';
-  db.query(sql, [id_usuario], (err, results) => {
-    if (err) return res.status(500).json({ erro: 'Erro ao buscar resumo' });
     res.status(200).json(results);
   });
 });
@@ -121,39 +119,7 @@ app.put('/redefinir-senha', async (req, res) => {
   });
 });
 
-app.post('/gastos', async (req, res) => {
-  const { descricao, valor, categoria, data, id_usuario, tipo } = req.body;
-  const sql = 'INSERT INTO gastos (descricao, valor, categoria, data, id_usuario, tipo) VALUES (?, ?, ?, ?, ?, ?)';
-  db.query(sql, [descricao, valor, categoria, data, id_usuario, tipo || 'gasto'], (err, result) => {
-    if (err) {
-      console.log('Erro detalhado:', err);
-      return res.status(500).json({ erro: 'Erro ao adicionar gasto' });
-    }
-    res.status(201).json({ mensagem: 'Gasto adicionado com sucesso!' });
-  });
-});
-
-app.get('/gastos/resumo/:id_usuario', (req, res) => {
-  const { id_usuario } = req.params;
-  const sql = `
-    SELECT 
-      categoria, 
-      SUM(CASE WHEN tipo = 'gasto' THEN valor ELSE 0 END) as total_gastos,
-      SUM(CASE WHEN tipo = 'ganho' THEN valor ELSE 0 END) as total_ganhos,
-      tipo
-    FROM gastos 
-    WHERE id_usuario = ? 
-    AND data >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) 
-    GROUP BY categoria, tipo
-  `;
-  db.query(sql, [id_usuario], (err, results) => {
-    if (err) return res.status(500).json({ erro: 'Erro ao buscar resumo' });
-    res.status(200).json(results);
-  });
-});
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('Servidor rodando na porta ' + PORT);
 });
-
