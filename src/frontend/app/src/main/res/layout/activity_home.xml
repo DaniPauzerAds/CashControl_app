@@ -98,14 +98,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_gravity="bottom"
-        app:backgroundTint="#8E0235"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@android:color/black"
-        app:labelVisibilityMode="unlabeled"
-        app:layout_anchor="@+id/linearLayout"
-        app:layout_anchorGravity="bottom|center"
-        app:menu="@menu/bottom_nav_menu" />
+        android:background="#7D002E"
+        app:itemIconTint="@null"
+        app:itemTextColor="#FFFFFF"
+        app:menu="@menu/bottom_nav_menu"/>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

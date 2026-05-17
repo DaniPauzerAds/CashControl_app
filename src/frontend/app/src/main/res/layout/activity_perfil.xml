@@ -1,64 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFF8EA">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="#8E0235"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp">
+        android:paddingBottom="70dp">
 
-        <TextView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:text="👤"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:background="#99FFFFFF"
-            android:layout_marginBottom="12dp"/>
-
-        <TextView
-            android:id="@+id/tvNomePerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nome"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvEmailPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="email@email.com"
-            android:textColor="#99FFFFFF"
-            android:textSize="13sp"
-            android:layout_marginTop="4dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:layout_marginTop="24dp">
-
-        <Button
-            android:id="@+id/btnSairConta"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="Sair da conta"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:backgroundTint="#8E0235"/>
+            android:layout_height="180dp"
+            android:background="#8E0235"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:text="👤"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:background="#99FFFFFF"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/tvNomePerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvEmailPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email@email.com"
+                android:textColor="#99FFFFFF"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_marginTop="24dp">
+
+            <Button
+                android:id="@+id/btnSairConta"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Sair da conta"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:backgroundTint="#8E0235"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:background="#7D002E"
+        app:itemIconTint="@null"
+        app:itemTextColor="#FFFFFF"
+        app:menu="@menu/bottom_nav_menu"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 return true;
-            } else if (id == R.id.nav_adicionar) {
+            } else if (id == R.id.nav_lista) {
                 Intent intent = new Intent(HomeActivity.this, ListaGastosActivity.class);
                 intent.putExtra("id_usuario", idUsuario);
                 startActivity(intent);

@@ -62,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:padding="12dp"
                 android:hint="Ex: Almoço, Uber..."
                 android:layout_marginBottom="14dp"/>
@@ -78,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:hint="0,00"
                 android:inputType="numberDecimal"
                 android:padding="12dp"
@@ -109,6 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:hint="DD/MM/AAAA"
                 android:focusable="false"
                 android:clickable="true"

@@ -45,15 +45,23 @@ public class CadastroActivity extends AppCompatActivity {
                 return;
             }
 
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Digite um email válido!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (senha.length() < 6) {
+                Toast.makeText(this, "A senha deve ter no mínimo 6 caracteres!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             fazerCadastro(nome, email, senha);
         });
-
         tvLogin.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
             startActivity(intent);
         });
     }
-
     private void fazerCadastro(String nome, String email, String senha) {
         JSONObject body = new JSONObject();
         try {

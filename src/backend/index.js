@@ -106,6 +106,21 @@ app.put('/gastos/:id', (req, res) => {
   });
 });
 
+app.put('/redefinir-senha', async (req, res) => {
+  const { email, novaSenha } = req.body;
+  const sql = 'SELECT * FROM usuarios WHERE email = ?';
+  db.query(sql, [email], async (err, results) => {
+    if (err) return res.status(500).json({ erro: 'Erro no servidor' });
+    if (results.length === 0) return res.status(404).json({ erro: 'Email não encontrado' });
+    const senhaCriptografada = await bcrypt.hash(novaSenha, 10);
+    const sqlUpdate = 'UPDATE usuarios SET senha = ? WHERE email = ?';
+    db.query(sqlUpdate, [senhaCriptografada, email], (err) => {
+      if (err) return res.status(500).json({ erro: 'Erro ao atualizar senha' });
+      res.status(200).json({ mensagem: 'Senha atualizada com sucesso!' });
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('Servidor rodando na porta ' + PORT);

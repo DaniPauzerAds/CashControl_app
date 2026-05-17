@@ -9,16 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnVoltar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Voltar"
-            android:layout_margin="16dp"
-            android:backgroundTint="#8E0235"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -62,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:padding="12dp"
                 android:hint="Ex: Almoço, Uber..."
                 android:layout_marginBottom="14dp"/>
@@ -78,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:hint="0,00"
                 android:inputType="numberDecimal"
                 android:padding="12dp"
@@ -95,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:paddingStart="14dp"
                 android:layout_marginBottom="10dp"/>
 
@@ -110,21 +103,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#F7F9FC"
+                android:textColor="#6C7277"
                 android:hint="DD/MM/AAAA"
                 android:focusable="false"
                 android:clickable="true"
                 android:padding="12dp"
                 android:layout_marginBottom="24dp"/>
-
-            <Button
-                android:id="@+id/btnSalvar"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:backgroundTint="#8E0235"
-                android:text="Salvar Gasto"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
 
         </LinearLayout>
 
