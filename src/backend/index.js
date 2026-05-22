@@ -2,6 +2,20 @@ const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'cashcontrol_secret_key';
+
+function verificarToken(req, res, next) {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).json({ erro: 'Token não fornecido' });
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.usuario = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ erro: 'Token inválido' });
+  }
+}
 
 const app = express();
 app.use(cors());
@@ -44,7 +58,19 @@ app.post('/login', async (req, res) => {
     if (results.length === 0) return res.status(401).json({ erro: 'Email ou senha inválidos' });
     const senhaCorreta = await bcrypt.compare(senha, results[0].senha);
     if (!senhaCorreta) return res.status(401).json({ erro: 'Email ou senha inválidos' });
-    res.status(200).json({ mensagem: 'Login realizado com sucesso!', usuario: results[0].nome, id: results[0].id });
+    
+    const token = jwt.sign(
+      { id: results[0].id, email: results[0].email },
+      JWT_SECRET,
+      { expiresIn: '30d' }
+    );
+    
+    res.status(200).json({
+      mensagem: 'Login realizado com sucesso!',
+      usuario: results[0].nome,
+      id: results[0].id,
+      token: token
+    });
   });
 });
 
@@ -117,6 +143,30 @@ app.put('/redefinir-senha', async (req, res) => {
       res.status(200).json({ mensagem: 'Senha atualizada com sucesso!' });
     });
   });
+});
+
+app.put('/usuarios/:id', verificarToken, async (req, res) => {
+  const { id } = req.params;
+  const { nome, email, senha } = req.body;
+  
+  if (req.usuario.id != id) {
+    return res.status(403).json({ erro: 'Sem permissão para alterar este usuário' });
+  }
+
+  if (senha) {
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
+    const sql = 'UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?';
+    db.query(sql, [nome, email, senhaCriptografada, id], (err) => {
+      if (err) return res.status(500).json({ erro: 'Erro ao atualizar usuário' });
+      res.status(200).json({ mensagem: 'Dados atualizados com sucesso!' });
+    });
+  } else {
+    const sql = 'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?';
+    db.query(sql, [nome, email, id], (err) => {
+      if (err) return res.status(500).json({ erro: 'Erro ao atualizar usuário' });
+      res.status(200).json({ mensagem: 'Dados atualizados com sucesso!' });
+    });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
