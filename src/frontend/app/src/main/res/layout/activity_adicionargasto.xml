@@ -9,16 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnVoltar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Voltar"
-            android:layout_margin="16dp"
-            android:backgroundTint="#8E0235"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -30,18 +20,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adicionar Gasto"
+                android:text="Adicionar"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Preencha os dados do gasto"
+                android:text="Preencha os dados"
                 android:textColor="#99FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -51,28 +42,67 @@
             android:padding="24dp">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIPO"
+                android:textColor="#8E0235"
+                android:textSize="10sp"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="18dp"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="14dp">
+
+                <Button
+                    android:id="@+id/btnTipoGasto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Gasto"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:backgroundTint="#8E0235"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btnTipoGanho"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Ganho"
+                    android:textColor="#FFFF"
+                    android:textSize="14sp"
+                    android:backgroundTint="#228b22"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="DESCRIÇÃO"
                 android:textColor="#8E0235"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
 
             <EditText
                 android:id="@+id/etDescricao"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:background="#F7F9FC"
                 android:textColor="#6C7277"
                 android:padding="12dp"
-                android:hint="Ex: Almoço, Uber..."
+                android:hint="Ex: Almoço, Salário..."
                 android:layout_marginBottom="14dp"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="VALOR (R$)"
                 android:textColor="#8E0235"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
 
             <EditText
                 android:id="@+id/etValor"
@@ -86,11 +116,12 @@
                 android:layout_marginBottom="14dp"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="CATEGORIA"
                 android:textColor="#8E0235"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
 
             <Spinner
                 android:id="@+id/spinnerCategoria"
@@ -100,11 +131,12 @@
                 android:layout_marginBottom="14dp"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="DATA"
                 android:textColor="#8E0235"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
 
             <EditText
                 android:id="@+id/etData"
@@ -123,13 +155,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:backgroundTint="#8E0235"
-                android:text="Salvar Gasto"
+                android:text="Salvar"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
 
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>

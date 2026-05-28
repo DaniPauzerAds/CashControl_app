@@ -26,6 +26,7 @@
         <activity android:name=".GraficoActivity"></activity>
         <activity android:name=".PerfilActivity"></activity>
         <activity android:name=".ListaGastosActivity"></activity>
+        <activity android:name=".EsqueciaSenhaActivity"></activity>
 
 
     </application>

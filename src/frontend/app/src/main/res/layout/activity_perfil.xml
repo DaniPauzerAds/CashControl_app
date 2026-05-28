@@ -21,15 +21,6 @@
             android:padding="24dp">
 
             <TextView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:text="👤"
-                android:textSize="40sp"
-                android:gravity="center"
-                android:background="#99FFFFFF"
-                android:layout_marginBottom="12dp"/>
-
-            <TextView
                 android:id="@+id/tvNomePerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,6 +46,17 @@
             android:orientation="vertical"
             android:padding="24dp"
             android:layout_marginTop="24dp">
+
+            <Button
+                android:id="@+id/btnEditarPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Editar perfil"
+                android:textColor="#8E0235"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:backgroundTint="#FFF8EA"
+                android:layout_marginBottom="12dp"/>
 
             <Button
                 android:id="@+id/btnSairConta"

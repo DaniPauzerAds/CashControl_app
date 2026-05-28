@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TextView tvBemVindo, tvTotal;
+    TextView tvBemVindo, tvTotal, tvTotalGanhos, tvSaldo;
     ListView lvCategorias;
     FloatingActionButton btnAdicionarGasto;
     RequestQueue requestQueue;
@@ -32,16 +32,32 @@ public class HomeActivity extends AppCompatActivity {
 
         tvBemVindo = findViewById(R.id.tvBemVindo);
         tvTotal = findViewById(R.id.tvTotal);
+        tvTotalGanhos = findViewById(R.id.tvTotalGanhos);
+        tvSaldo = findViewById(R.id.tvSaldo);
         lvCategorias = findViewById(R.id.lvCategorias);
         btnAdicionarGasto = findViewById(R.id.btnAdicionarGasto);
         requestQueue = Volley.newRequestQueue(this);
 
-        nomeUsuario = getIntent().getStringExtra("nome");
+        android.content.SharedPreferences prefs = getSharedPreferences("cashcontrol", MODE_PRIVATE);
         idUsuario = getIntent().getIntExtra("id_usuario", 0);
+        nomeUsuario = getIntent().getStringExtra("nome");
+
+        if (idUsuario == 0 || nomeUsuario == null) {
+            idUsuario = prefs.getInt("id_usuario", 0);
+            nomeUsuario = prefs.getString("nome", "");
+        }
 
         tvBemVindo.setText("Olá, " + nomeUsuario + "!");
 
         carregarResumo();
+
+        TextView tvVerGanhos = findViewById(R.id.tvVerGanhos);
+        tvVerGanhos.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ListaGastosActivity.class);
+            intent.putExtra("id_usuario", idUsuario);
+            intent.putExtra("filtro", "ganho");
+            startActivity(intent);
+        });
 
         btnAdicionarGasto.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, AdicionarGastoActivity.class);
@@ -89,28 +105,50 @@ public class HomeActivity extends AppCompatActivity {
                 null,
                 response -> {
                     ArrayList<String> categorias = new ArrayList<>();
-                    double total = 0;
+                    double totalGastos = 0;
+                    double totalGanhos = 0;
 
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject item = response.getJSONObject(i);
                             String categoria = item.getString("categoria");
-                            double valor = item.getDouble("total");
-                            total += valor;
-                            categorias.add(categoria + ":  R$ " + String.format("%.2f", valor));
+                            String tipo = item.getString("tipo");
+                            double valorGasto = item.getDouble("total_gastos");
+                            double valorGanho = item.getDouble("total_ganhos");
+
+                            totalGastos += valorGasto;
+                            totalGanhos += valorGanho;
+
+                            if (valorGasto > 0) {
+                                categorias.add(" " + categoria + ":  R$ " + String.format("%.2f", valorGasto));
+                            }
+                            if (valorGanho > 0) {
+                                categorias.add(" " + categoria + ":  R$ " + String.format("%.2f", valorGanho));
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    tvTotal.setText("R$ " + String.format("%.2f", total));
+                    double finalTotalGastos = totalGastos;
+                    double finalTotalGanhos = totalGanhos;
+                    double saldo = totalGanhos - totalGastos;
+
+                    tvTotal.setText("-R$ " + String.format("%.2f", finalTotalGastos));
+                    tvTotalGanhos.setText("+R$ " + String.format("%.2f", finalTotalGanhos));
+                    tvSaldo.setText("Saldo: R$ " + String.format("%.2f", saldo));
+
+                    if (saldo >= 0) {
+                        tvSaldo.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
+                    } else {
+                        tvSaldo.setTextColor(android.graphics.Color.parseColor("#F44336"));
+                    }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(
                             this,
                             R.layout.lista_categorias,
                             categorias
                     );
-
                     lvCategorias.setAdapter(adapter);
                 },
                 error -> {

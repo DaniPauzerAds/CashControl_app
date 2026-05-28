@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText etEmail, etSenha;
     Button btnLogin;
-    TextView tvCadastro, tvEsqueceu;
+    TextView tvCadastro, tvEsqueciasenha;
     RequestQueue requestQueue;
 
     String URL = "https://cashcontrol-app.onrender.com/login";
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         etSenha = findViewById(R.id.etSenha);
         btnLogin = findViewById(R.id.btnEntrar);
         tvCadastro = findViewById(R.id.tvCadastro);
-        tvEsqueceu = findViewById(R.id.tvEsqueceu);
+        tvEsqueciasenha = findViewById(R.id.tvEsqueciasenha);
         requestQueue = Volley.newRequestQueue(this);
 
         btnLogin.setOnClickListener(v -> {
@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
         tvCadastro.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
+            startActivity(intent);
+        });
+        TextView tvEsqueciSenha = findViewById(R.id.tvEsqueciasenha);
+        tvEsqueciSenha.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, EsqueciaSenhaActivity.class);
             startActivity(intent);
         });
     }
@@ -83,11 +88,15 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         String nome = response.getString("usuario");
                         int id = response.getInt("id");
+                        String token = response.getString("token");
+
                         SharedPreferences prefs = getSharedPreferences("cashcontrol", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putInt("id_usuario", id);
                         editor.putString("nome", nome);
+                        editor.putString("token", token);
                         editor.apply();
+
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         intent.putExtra("nome", nome);
                         intent.putExtra("id_usuario", id);
@@ -102,5 +111,4 @@ public class MainActivity extends AppCompatActivity {
         );
 
         requestQueue.add(request);
-    }
-}
+    }}

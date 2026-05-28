@@ -21,9 +21,10 @@
             android:padding="24dp">
 
             <TextView
+                android:id="@+id/tvTituloLista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Meus Gastos"
+                android:text="Minha Atividade"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
@@ -31,9 +32,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Segure um gasto para editar ou deletar"
+                android:text="Segure um item para editar ou deletar"
                 android:textColor="#99FFFFFF"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:layout_marginTop="4dp"/>
 
         </LinearLayout>

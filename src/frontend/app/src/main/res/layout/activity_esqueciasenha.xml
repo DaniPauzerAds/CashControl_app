@@ -1,6 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF8EA">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="#8E0235"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Redefinir Senha"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Digite seu email e a nova senha"
+                android:textColor="#99FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-MAIL"
+                android:textColor="#8E0235"
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/etEmailRedefinir"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#F7F9FC"
+                android:hint="seu@email.com"
+                android:textColor="#6C7277"
+                android:textSize="14sp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOVA SENHA"
+                android:textColor="#8E0235"
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/etNovaSenha"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#F7F9FC"
+                android:hint="Mínimo 6 caracteres"
+                android:textColor="#6C7277"
+                android:textSize="14sp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CONFIRMAR NOVA SENHA"
+                android:textColor="#8E0235"
+                android:textSize="10sp"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/etConfirmarNovaSenha"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#F7F9FC"
+                android:hint="Repita a nova senha"
+                android:textColor="#6C7277"
+                android:textSize="14sp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnRedefinir"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Redefinir Senha"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:backgroundTint="#8E0235"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tvVoltarLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Voltar para o login"
+                android:textColor="#8E0235"
+                android:textSize="13sp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

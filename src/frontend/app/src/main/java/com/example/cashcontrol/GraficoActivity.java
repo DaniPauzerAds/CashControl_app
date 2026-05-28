@@ -103,7 +103,7 @@ public class GraficoActivity extends AppCompatActivity {
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject obj = response.getJSONObject(i);
                             String categoria = obj.getString("categoria");
-                            float total = (float) obj.getDouble("total");
+                            float total = (float) obj.getDouble("total_gastos");
                             entradas.add(new BarEntry(i, total));
                             categorias.add(categoria);
                             cores.add(coresArray[i % coresArray.length]);
@@ -148,4 +148,4 @@ public class GraficoActivity extends AppCompatActivity {
 
         queue.add(request);
     }
-}
+}///////////////////////=

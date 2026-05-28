@@ -29,6 +29,7 @@ public class ListaGastosActivity extends AppCompatActivity {
     ListView lvGastos;
     RequestQueue requestQueue;
     int idUsuario;
+    String filtro;
     ArrayList<JSONObject> listaGastos = new ArrayList<>();
 
     @Override
@@ -37,6 +38,8 @@ public class ListaGastosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_gastos);
 
         idUsuario = getIntent().getIntExtra("id_usuario", 0);
+        filtro = getIntent().getStringExtra("filtro");
+
         if (idUsuario == 0) {
             android.content.SharedPreferences prefs = getSharedPreferences("cashcontrol", MODE_PRIVATE);
             idUsuario = prefs.getInt("id_usuario", 0);
@@ -44,6 +47,13 @@ public class ListaGastosActivity extends AppCompatActivity {
 
         lvGastos = findViewById(R.id.lvGastos);
         requestQueue = Volley.newRequestQueue(this);
+
+        TextView tvTitulo = findViewById(R.id.tvTituloLista);
+        if ("ganho".equals(filtro)) {
+            tvTitulo.setText("Meus Ganhos");
+        } else {
+            tvTitulo.setText("Meus Gastos");
+        }
 
         configurarBottomNav(R.id.nav_lista);
         carregarGastos();
@@ -89,7 +99,11 @@ public class ListaGastosActivity extends AppCompatActivity {
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject gasto = response.getJSONObject(i);
-                            listaGastos.add(gasto);
+                            String tipo = gasto.optString("tipo", "gasto");
+
+                            if (filtro == null || filtro.equals(tipo)) {
+                                listaGastos.add(gasto);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -118,7 +132,15 @@ public class ListaGastosActivity extends AppCompatActivity {
 
                                 tvDescricao.setText(gasto.getString("descricao"));
                                 tvData.setText(gasto.getString("data").substring(0, 10));
-                                tvValor.setText("R$ " + String.format("%.2f", gasto.getDouble("valor")));
+
+                                String tipo = gasto.optString("tipo", "gasto");
+                                if ("ganho".equals(tipo)) {
+                                    tvValor.setText("+R$ " + String.format("%.2f", gasto.getDouble("valor")));
+                                    tvValor.setTextColor(android.graphics.Color.parseColor("#4CAF50"));
+                                } else {
+                                    tvValor.setText("-R$ " + String.format("%.2f", gasto.getDouble("valor")));
+                                    tvValor.setTextColor(android.graphics.Color.parseColor("#F44336"));
+                                }
 
                                 String categoria = gasto.getString("categoria");
                                 tvCategoria.setText(categoria);
@@ -174,8 +196,8 @@ public class ListaGastosActivity extends AppCompatActivity {
 
     private void confirmarDelete(int idGasto) {
         new AlertDialog.Builder(this)
-                .setTitle("Deletar gasto")
-                .setMessage("Tem certeza que quer deletar esse gasto?")
+                .setTitle("Deletar")
+                .setMessage("Tem certeza que quer deletar?")
                 .setPositiveButton("Deletar", (dialog, which) -> deletarGasto(idGasto))
                 .setNegativeButton("Cancelar", null)
                 .show();
@@ -189,7 +211,7 @@ public class ListaGastosActivity extends AppCompatActivity {
                 url,
                 null,
                 response -> {
-                    Toast.makeText(ListaGastosActivity.this, "Gasto deletado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListaGastosActivity.this, "Deletado!", Toast.LENGTH_SHORT).show();
                     carregarGastos();
                 },
                 error -> Toast.makeText(ListaGastosActivity.this, "Erro ao deletar!", Toast.LENGTH_SHORT).show()
@@ -276,7 +298,7 @@ public class ListaGastosActivity extends AppCompatActivity {
                 url,
                 body,
                 response -> {
-                    Toast.makeText(ListaGastosActivity.this, "Gasto editado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListaGastosActivity.this, "Editado!", Toast.LENGTH_SHORT).show();
                     carregarGastos();
                 },
                 error -> Toast.makeText(ListaGastosActivity.this, "Erro ao editar!", Toast.LENGTH_SHORT).show()

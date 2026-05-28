@@ -104,7 +104,7 @@ app.get('/gastos/resumo/:id_usuario', (req, res) => {
 
 app.get('/gastos/:id_usuario', (req, res) => {
   const { id_usuario } = req.params;
-  const sql = 'SELECT * FROM gastos WHERE id_usuario = ? ORDER BY data DESC';
+  const sql = 'SELECT * FROM gastos WHERE id_usuario = ? ORDER BY id DESC';
   db.query(sql, [id_usuario], (err, results) => {
     if (err) return res.status(500).json({ erro: 'Erro ao buscar gastos' });
     res.status(200).json(results);
