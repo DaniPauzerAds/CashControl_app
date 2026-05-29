@@ -59,6 +59,17 @@
                 android:layout_marginBottom="12dp"/>
 
             <Button
+                android:id="@+id/btnDeletarConta"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Deletar conta"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:backgroundTint="#B00020"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
                 android:id="@+id/btnSairConta"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"

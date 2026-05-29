@@ -27,6 +27,7 @@ public class PerfilActivity extends AppCompatActivity {
     Button btnSairConta, btnEditarPerfil;
     int idUsuario;
     String tokenSalvo;
+    Button btnDeletarConta;
     RequestQueue requestQueue;
 
     @Override
@@ -57,6 +58,9 @@ public class PerfilActivity extends AppCompatActivity {
         configurarBottomNav(R.id.nav_perfil);
 
         btnEditarPerfil.setOnClickListener(v -> mostrarDialogEditar(nome, email));
+
+        btnDeletarConta = findViewById(R.id.btnDeletarConta);
+        btnDeletarConta.setOnClickListener(v -> confirmarDelete());
 
         btnSairConta.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
@@ -141,7 +145,42 @@ public class PerfilActivity extends AppCompatActivity {
 
         requestQueue.add(request);
     }
+    private void confirmarDelete() {
+        new AlertDialog.Builder(this)
+                .setTitle("Deletar conta")
+                .setMessage("Tem certeza? Todos os seus dados serão apagados permanentemente!")
+                .setPositiveButton("Deletar", (dialog, which) -> deletarConta())
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 
+    private void deletarConta() {
+        String url = "https://cashcontrol-app.onrender.com/usuarios/" + idUsuario;
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null,
+                response -> {
+                    SharedPreferences prefs = getSharedPreferences("cashcontrol", MODE_PRIVATE);
+                    prefs.edit().clear().apply();
+                    Toast.makeText(this, "Conta deletada com sucesso!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PerfilActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                },
+                error -> Toast.makeText(this, "Erro ao deletar conta!", Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("authorization", tokenSalvo);
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
     private void configurarBottomNav(int itemSelecionado) {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
         bottomNav.setSelectedItemId(itemSelecionado);
