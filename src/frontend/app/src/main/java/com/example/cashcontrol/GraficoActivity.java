@@ -148,4 +148,4 @@ public class GraficoActivity extends AppCompatActivity {
 
         queue.add(request);
     }
-}///////////////////////=
+}

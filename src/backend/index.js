@@ -169,6 +169,22 @@ app.put('/usuarios/:id', verificarToken, async (req, res) => {
   }
 });
 
+app.delete('/usuarios/:id', verificarToken, async (req, res) => {
+  const { id } = req.params;
+
+  if (req.usuario.id != id) {
+    return res.status(403).json({ erro: 'Sem permissão para deletar este usuário' });
+  }
+
+  db.query('DELETE FROM gastos WHERE id_usuario = ?', [id], (err) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao deletar gastos' });
+    db.query('DELETE FROM usuarios WHERE id = ?', [id], (err) => {
+      if (err) return res.status(500).json({ erro: 'Erro ao deletar usuário' });
+      res.status(200).json({ mensagem: 'Conta deletada com sucesso!' });
+    });
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('Servidor rodando na porta ' + PORT);
